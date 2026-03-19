@@ -4,7 +4,7 @@
 
 ### 🚀 Brightspace
 
-De lesstof en opdrachten voor dit vak vind je in Brightspace.
+- De lesstof en opdrachten voor dit vak vind je in Brightspace.
 
 ### 🚀 Github 
 
@@ -12,11 +12,8 @@ De lesstof en opdrachten voor dit vak vind je in Brightspace.
 
 ## Links
 
-- [🔥 Code snippets](./snippets/README.md)
-- [Startproject Excalibur](https://github.com/HR-CMGT/prg4-startproject-2026)
-- [Excalibur home](https://excaliburjs.com), [documentation](https://excaliburjs.com/docs/api/edge/index.html)
-- [Excalibur Discord](https://discord.gg/xbqzmHxD)
+- [Code snippets](./snippets/README.md) 
+- [Startproject](https://github.com/HR-CMGT/prg4-startproject-2026)
+- [Excalibur home](https://excaliburjs.com), [documentation](https://excaliburjs.com/docs/api/edge/index.html), [Discord](https://discord.gg/xbqzmHxD)
 - [Chrome Devtool](https://chromewebstore.google.com/detail/excalibur-dev-tools/dinddaeielhddflijbbcmpefamfffekc)
-- [Je game op Github pages](./setup.md)
 - [Arcade Kast](https://github.com/HR-CMGT/arcade-game)
-- Test online op [Vite.new](https://vite.new/)
