@@ -17,3 +17,4 @@
 - [Excalibur home](https://excaliburjs.com), [documentation](https://excaliburjs.com/docs/api/edge/index.html), [Discord](https://discord.gg/xbqzmHxD)
 - [Chrome Devtool](https://chromewebstore.google.com/detail/excalibur-dev-tools/dinddaeielhddflijbbcmpefamfffekc)
 - [Arcade Kast](https://github.com/HR-CMGT/arcade-game)
+- [Werken met AI](./snippets/ai.md)
