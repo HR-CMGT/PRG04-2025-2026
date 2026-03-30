@@ -12,7 +12,7 @@
 
 ## Links
 
-- [Code snippets](./snippets/README.md) 
+- [Code snippets](./snippets.md) 
 - [Startproject](https://github.com/HR-CMGT/prg4-startproject-2026)
 - [Excalibur home](https://excaliburjs.com), [documentation](https://excaliburjs.com/docs/api/edge/index.html), [Discord](https://discord.gg/xbqzmHxD)
 - [Chrome Devtool](https://chromewebstore.google.com/detail/excalibur-dev-tools/dinddaeielhddflijbbcmpefamfffekc)

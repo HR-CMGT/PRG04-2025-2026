@@ -1,6 +1,6 @@
 # Hulp vragen aan AI
 
-- [Prompting in de browser](#prompting)
+- [Prompting](#prompting)
 - [Voorbeelden](#prompt-voorbeelden)
 - [Resultaat evalueren](#resultaat-evalueren)
 - [Prompting in de editor](#copilot-in-vs-code)
@@ -92,11 +92,10 @@ engine.add(actor1);
 
 ## Copilot in VS Code
 
-- Zet Copilot aan (gratis in VS Code)
-- Vraag eventueel het [student developer pack](https://education.github.com/pack) aan voor meer voordelen.
-- Leer het verschil tussen ASK / EDIT / AGENT mode, en de verschillende modellen
+- Zet Copilot aan - gratis in VS Code met [student developer pack](https://education.github.com/pack)
+- Leer het verschil tussen ASK / PLAN / AGENT mode, en de verschillende modellen
 - Gebruik CMD/CTRL + i om inline te prompten
-- Zet TAB mode uit
+- Zet TAB mode uit!
 - Maak een selectie in je code om daar specifiek vragen over te stelle±
 - Gebruik "/" om meteen iets uit te leggen of te fixen
 
@@ -129,19 +128,18 @@ Je kan in [de PRG4 repository](https://github.com/HR-CMGT/PRG04-2024-2025/) en i
 
 ## CMGT Chatbot
 
-De [CMGT chatbot](https://ai-assistent-mu.vercel.app) heeft de instructies over de lesstof al ingebouwd.
+De [CMGT chatbot](https://cmgt-assistant.vercel.app) heeft de instructies over de lesstof al ingebouwd.
 
 ![vercel](../images/ai-vercel-assistent.png)
 
-https://ai-assistent-mu.vercel.app
+https://cmgt-assistant.vercel.app
 
 <br><br><br>
 
-## Codebase
+## Deze repository als input voor AI
 
-⚠️ Optioneel
-
-- Plaats de PRG4 code snippets en de readme files van les 1 t/m 8 in je projectmap.
-- Gebruik de hashtag `#codebase` in je prompts in VS Code, dit zorgt dat copilot gaat zoeken in die .md files naar een antwoord. Prompts duren dan wel langer en kosten meer tokens!
+- Plaats deze repository in projectmap, in een eigen "examples" folder.
+- Nu kan je hier rechtstreeks vragen aan stellen.
+- Of maak hier een instructions file van via "create instructions file".
 
 <br><br><br>
