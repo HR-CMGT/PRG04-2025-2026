@@ -1,21 +1,26 @@
-# Hulp vragen aan AI
+# Werken met AI
 
+- [AI in Excalibur](#ai-in-excalibur)
 - [Prompting](#prompting)
+- [Je werk verantwoorden](#je-werk-verantwoorden)
 - [Voorbeelden](#prompt-voorbeelden)
 - [Resultaat evalueren](#resultaat-evalueren)
-- [Prompting in de editor](#copilot-in-vs-code)
-- [Prompt Instructions](#prompting)
+- [Copilot](#copilot)
+- [Instructions](#instructions)
 - [Chat met Github Repositories](#chat-met-de-repository)
 - [CMGT chatbot](#cmgt-chatbot)
-- [Codebase](#codebase)
-
-<br>
-
-> ⚠️ *Disclaimer: AI modellen zijn nog niet heel goed in het werken met Excalibur. Hou je prompts daarom klein, geef altijd instructies mee, en vergelijk altijd het resultaat met de lesstof*
 
 <br><br><br>
 
-## Prompting in de browser
+## AI in Excalibur
+
+AI modellen zijn niet goed in het werken met Excalibur. De reden is dat er maar weinig goede code voorbeelden in de trainingdata van een AI model zit, zeker als je het vergelijkt met meer gangbare libraries zoals React. Het helpt ook niet dat de code voorbeelden van Excalibur in verschillende stijlen worden gebruikt, dit is niet altijd OOP, en werkt niet altijd met Vite.
+
+
+
+<br><br><br>
+
+## Prompting 
 
 Bij het doen van een prompt in ChatGPT, Claude, Blackbox, etc. over Excalibur moet je goede instructies meegeven, omdat het antwoord anders niet voldoende overeenkomt met de werkwijze uit de lessen.
 
@@ -61,22 +66,23 @@ export class Enemy extends Actor {
 - Why doesn't the player fall when I walk off the platform
 - My game class keeps the score. How can I adjust this from my player
 - I want to make the player shoot a bullet, what is a good way to handle this ?
+- 🚫 Maak een game
+- 🚫 Maak flappy bird
+- 🚫 Hij doet het niet
 
-#### 🚨 Vibe coding
+<br><br><br>
 
-Als je prompts te algemeen zijn ga je heel onvoorspelbare resultaten krijgen. Daarnaast helpt het je niet om de basis principes van game programming zelf te leren.
+## Je werk verantwoorden
 
-- Maak een game
-- Maak flappy bird
-- Hij doet het niet
+Of je nu met AI werkt of niet, je bent altijd zelf verantwoordelijk voor de kwaliteit van de code die je oplevert, en voor het werken volgens de lesstof. Bij het inleveren van je werk is het essentieel dat je toelicht hoe je AI hebt gebruikt. Je moet in eigen woorden uitleggen welke keuzes je hebt gemaakt en waarom.
+
+
 
 <br><br><br>
 
 ## Resultaat evalueren
 
-Vraag om uitleg van gegenereerde code, zodat je zelf beter begrijpt. Check of gegenereerde code overeenkomt met de instructies. 
-
-🚨 *Hieronder zie je een voorbeeld van Excalibur code die niet overeenkomt met de lessen, omdat er geen instructies zijn meegegeven*
+Hieronder zie je een voorbeeld van Excalibur code die niet overeenkomt met de lessen, omdat er geen instructies zijn meegegeven
 
 ```js
 const engine = new ex.Engine({
@@ -90,7 +96,7 @@ engine.add(actor1);
 
 <br><br><br>
 
-## Copilot in VS Code
+## Copilot 
 
 - Zet Copilot aan - gratis in VS Code met [student developer pack](https://education.github.com/pack)
 - Leer het verschil tussen ASK / PLAN / AGENT mode, en de verschillende modellen
@@ -103,16 +109,12 @@ engine.add(actor1);
 
 <br><br><br>
 
-## Prompt Instructions in VS Code
+## Instructions 
 
-Je kan in je code editor automatisch prompt instructies meegeven:
+In VS Code kan je via chat settings bepalen welke instructions je gebruikt.
+Je kan ook je eigen instructions genereren, bijvoorbeeld door deze hele repository als basis te gebruiken.
 
-- Zet de "instructions" optie aan: *settings > copilot > use instruction files*
-- Plaats [copilot-instructions.md](./copilot-instructions.md) in `.github/copilot-instructions.md`.
-- Zet [⚙️ github.copilot.chat.codeGeneration.useInstructionFiles](vscode://settings/github.copilot.chat.codeGeneration.useInstructionFiles) op `true`.
-- [Meer info op de VS Code site](https://code.visualstudio.com/docs/copilot/copilot-customization#_use-instruction-files)
-
-![copilot](./copilot-settings.png)
+![copilot](./instructions-settings.png)
 
 <br><br><br>
 
@@ -136,10 +138,3 @@ https://cmgt-assistant.vercel.app
 
 <br><br><br>
 
-## Deze repository als input voor AI
-
-- Plaats deze repository in projectmap, in een eigen "examples" folder.
-- Nu kan je hier rechtstreeks vragen aan stellen.
-- Of maak hier een instructions file van via "create instructions file".
-
-<br><br><br>
