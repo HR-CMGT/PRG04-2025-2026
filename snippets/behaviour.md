@@ -23,8 +23,8 @@ class Enemy extends Actor {
         this.pos = new Vector(500, 40)
     }
     onPreUpdate(engine){
-        let direction = this.sub(engine.player.pos).normalize()
-        this.vel = direction.scale(200)
+        let direction = engine.player.pos.sub(this.pos).normalize();
+        this.vel = direction.scale(200);
     }
 }
 ```
