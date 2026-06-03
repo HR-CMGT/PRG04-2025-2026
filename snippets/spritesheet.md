@@ -105,7 +105,3 @@ export class Player extends Actor {
 
 }
 ```
-
-In het codesandbox vind je ook een voorbeeld van een kaartspel waarbij alle kaarten in een PNG file staan, en de card class toont een random kaart.
-
-- [CodeSandbox Voorbeeld](https://codesandbox.io/p/sandbox/excalibur-spritesheet-ysssx4)
