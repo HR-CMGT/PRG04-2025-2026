@@ -2,10 +2,15 @@
 
 Met een `SpriteSheet` kan je meerdere sprites knippen uit een enkel PNG bestand. Dit kan je gebruiken voor Tiles of om animatieframes te laden.
 
-[Animatieframes](#animation-frames) in één png file <br>
+- [Animatieframes](#animation-frames) in één png file
+- [Tiles knippen](#tiles-knippen) uit een grotere afbeelding 
+
+<br>
+
+Animatieframes <br>
 ![anim](./player.png)
 
-[Tiles knippen](#tiles-knippen) uit een grotere afbeelding <br>
+Tilemap tiles <br>
 ![sheet](./cards.png)
 
 
