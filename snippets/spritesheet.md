@@ -1,11 +1,11 @@
 # Spritesheet
 
-Met een `SpriteSheet` kan je meerdere sprites knippen uit een enkel PNG bestand. Deze kan je vervolgens in een `Animation` gebruiken.
+Met een `SpriteSheet` kan je meerdere sprites knippen uit een enkel PNG bestand. Dit kan je gebruiken voor Tiles of om animatieframes te laden.
 
-Animatie frames in een png file <br>
+[Animatieframes](#animation-frames) in één png file <br>
 ![anim](./player.png)
 
-Een heel kaartendek in een png file <br>
+[Tiles knippen](#tiles-knippen) uit een grotere afbeelding <br>
 ![sheet](./cards.png)
 
 
@@ -13,7 +13,7 @@ Een heel kaartendek in een png file <br>
 <br>
 <br>
 
-## Animaties bouwen
+## Animation Frames
 
 De image source heb je geladen in `Resources`. Je hoeft hier nog geen `toSprite()` te doen, dat gebeurt automatisch.
 
@@ -52,7 +52,7 @@ right.flipHorizontal = true
 
 <br><br><br>
 
-## Compleet voorbeeld
+### Walking character
 
 In dit voorbeeld gebruiken we keyboard controls om de verschillende animaties te tonen.
 
@@ -103,5 +103,65 @@ export class Player extends Actor {
         this.vel = new Vector(xspeed, 0)
     }
 
+}
+```
+
+<br><br><br>
+
+## Tiles knippen uit een afbeelding
+
+Je kan alle tiles voor je achtergrond uit één afbeelding laden en individueel inladen. Let op, je hebt hier geen tilemap of tiled plugin nodig, alles wat we doen is plaatjes knippen uit een grotere afbeelding.
+
+#### GAME.JS
+
+```js
+export class Game extends Engine {
+
+    constructor() {
+        super({ width: 800, height: 600, suppressHiDPIScaling: true })
+        this.start(ResourceLoader).then(() => this.startGame())
+    }
+
+    startGame() {
+        const tileMap = new TileMap(spriteSheet)
+        this.add(tileMap)
+    }
+}
+new Game()
+```
+
+#### TILEMAP.JS
+
+```js
+import { Actor, SpriteSheet, Vector, Random } from "excalibur";
+import { Resources } from "./resources";
+
+export class TileMap extends Actor {
+
+    onInitialize(engine) {
+        const spritesheet = SpriteSheet.fromImageSource({
+            image: Resources.Tiles,
+            grid: {
+                rows: 4, columns: 4, spriteWidth: 256, spriteHeight: 256,
+            },
+            // je kan aangeven of er lege ruimte of marges in de afbeelding zitten
+            // spacing: {
+            //     originOffset: { x: 11, y: 2 },
+            //     margin: { x: 23, y: 5 },
+            // },
+        });
+        // test of alle sprites er zijn
+        console.log(spritesheet.sprites)
+
+        let act1 = new Actor({anchor:Vector.Zero})
+        act1.graphics.use(spritesheet.sprites[0])
+        act1.pos = new Vector(0,0)
+        this.addChild(act1)
+
+        let act2 = new Actor({ anchor: Vector.Zero })
+        act2.graphics.use(spritesheet.sprites[1])
+        act2.pos = new Vector(256, 0)
+        this.addChild(act2)
+    }
 }
 ```
