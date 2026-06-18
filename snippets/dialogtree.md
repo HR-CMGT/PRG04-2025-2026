@@ -1,6 +1,11 @@
 # Dialog Tree
 
+<img src="./dialog.png" width="500">
+
 Het maken van een Dialog Tree kan je doen met een JSON file waar al je gesprekken in staan. Met javascript kan je vervolgens de juiste dialog opzoeken, en de vraag met antwoorden tonen.
+
+<br><br><br>
+
 
 ## JSON
 
@@ -9,6 +14,7 @@ Het maken van een Dialog Tree kan je doen met een JSON file waar al je gesprekke
     {
         "id":"start-conversation",
         "question":"Hi, I'm Danny the Troll. How are you today?",
+        "image":"neutral-troll.png"
         "answers":[
             {
                 "text":"I'm fine, how are you?",
@@ -21,6 +27,7 @@ Het maken van een Dialog Tree kan je doen met een JSON file waar al je gesprekke
     },{
         "id":"nice-conversation",
         "question":"Oh I'm fine, how can I help you?",
+        "image":"friendly-troll.png"
         "answers":[
             {
                 "text":"Tell me the way to the troll cave",
@@ -33,6 +40,7 @@ Het maken van een Dialog Tree kan je doen met een JSON file waar al je gesprekke
     },{
         "id":"nasty-conversation",
         "question":"So what! Trolls are people too you know!",
+        "image":"angry-troll.png",
         "answers":[
             {
                 "text":"Sorry I didn't know that",
@@ -45,6 +53,8 @@ Het maken van een Dialog Tree kan je doen met een JSON file waar al je gesprekke
     }
 ]
 ```
+<br><br><br>
+
 
 ## Javascript
 
@@ -54,16 +64,45 @@ In `vite` kan je een JSON rechtstreeks importeren zonder `fetch`.
 import dialogData from "./dialogs.json"
 
 function showQuestion(id) {
-    // find the dialog for this id
+    // zoek de juiste dialog
     const dialog = dialogData.find(d => d.id === id)
-    // show the question
+    // vraag met achtergrond plaatje
     console.log(dialog.question)
-    // show the answers
+    console.log(`    (show image:${dialog.image})`)
+    // alle antwoorden
     for(let answer of dialog.answers) {
-        console.log(` - ${answer.text}`)
-        console.log(`    (if chosen, go to ${answer.link})`)
+        console.log(answer.text)
+        console.log(`  (if chosen, go to ${answer.link})`)
     }
 }
 
 showQuestion("start-conversation")
 ```
+
+<br><br><br>
+
+## Excalibur
+
+In excalibur maak je een label aan voor de vraag en de drie antwoorden. Die vul je telkens met de huidige vraag en antwoorden. Begin met deze setup:
+
+```js
+import dialogData from "./dialogs.json"
+
+export class Level extends Scene {
+
+    onInitialize(engine) {
+        this.questionLabel = new Label({
+            pos: new Vector(100, 100),
+            font: new Font({family: 'impact', size: 24, unit: FontUnit.Px })
+        })
+        this.add(label)
+        this.showQuestion("start-conversation")
+    }
+
+    showQuestion(id) {
+        const dialog = dialogData.find(d => d.id === id)
+        this.questionLabel.text = dialog.question
+    }
+}
+```
+
