@@ -83,7 +83,7 @@ showQuestion("start-conversation")
 
 ## Excalibur
 
-In excalibur maak je een label aan voor de vraag en de drie antwoorden. Die vul je telkens met de huidige vraag en antwoorden. Begin met deze setup:
+In excalibur maak je een label aan voor de vraag en de drie antwoorden. Die vul je telkens met de huidige vraag en antwoorden. De labels kan je clickable maken, of gebruik een toets om een antwoord te selecteren. Begin met deze setup:
 
 ```js
 import dialogData from "./dialogs.json"
