@@ -14,7 +14,7 @@ Het maken van een Dialog Tree kan je doen met een JSON file waar al je gesprekke
     {
         "id":"start-conversation",
         "question":"Hi, I'm Danny the Troll. How are you today?",
-        "image":"neutral-troll.png"
+        "image":"neutral-troll.png",
         "answers":[
             {
                 "text":"I'm fine, how are you?",
@@ -27,7 +27,7 @@ Het maken van een Dialog Tree kan je doen met een JSON file waar al je gesprekke
     },{
         "id":"nice-conversation",
         "question":"Oh I'm fine, how can I help you?",
-        "image":"friendly-troll.png"
+        "image":"friendly-troll.png",
         "answers":[
             {
                 "text":"Tell me the way to the troll cave",
