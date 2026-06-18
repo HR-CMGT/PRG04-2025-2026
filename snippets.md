@@ -22,6 +22,7 @@
 
 ## Advanced
 
+- [Dialog Tree](./snippets/dialogtree.md)
 - [Tiling en Scrolling Background](./snippets/scrolling.md)
 - [Een auto besturen](./snippets/movedirection.md)
 - [Actors zoeken in een Scene](./snippets/README.md#actors-zoeken)
