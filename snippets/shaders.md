@@ -2,7 +2,7 @@
 
 Een shader is een visueel effect dat je toepast met WebGL. Het effect kan op je hele game of op een enkele actor worden toegepast.
 
-Shader code is geschreven in de GLSL taal. Shader code moet je als string in je javascript class plakken, met backticks. Let op enters en spaties. Je kan online voorbeelden van shaders vinden, bv.
+Shader code is geschreven in de GLSL taal. Shader code moet je als string in je javascript class plakken, of je kan het via `import` inladen. Let op enters en spaties. Je kan online voorbeelden van shaders vinden, bv.
 
 - [Shadertoy water](https://www.shadertoy.com/view/MdlXz8)
 - [Balatro background](https://www.shadertoy.com/view/XXjGDt)
@@ -73,10 +73,6 @@ import { Actor, Vector, Shader, Material, Color } from "excalibur"
 
 export class Plant extends Actor {
 
-    constructor() {
-        //...
-    }
-
     onInitialize(engine){
         const wavyMaterial = engine.graphicsContext.createMaterial({
             name: 'wavy-material',
@@ -106,3 +102,57 @@ export class Plant extends Actor {
 }
 
 ```
+
+<br><br><br>
+
+## Shader code in eigen GLSL bestand
+
+Je krijgt betere code completion als je shader code in een eigen `.glsl` bestand staat. Dit kan je dan importeren.
+
+#### shader.glsl
+
+```glsl
+#version 300 es
+void main() {
+  // ...etc
+}
+```
+
+#### player.js
+
+```js
+import myShader from './shader/shader.glsl'
+
+export class Plant extends Actor {
+
+    onInitialize(engine){
+        const wavyMaterial = engine.graphicsContext.createMaterial({
+            name: 'wavy-material',
+            fragmentSource: myShader
+        });
+        this.graphics.material = wavyMaterial;
+    }
+}
+```
+
+Om dit helemaal werkend te krijgen moet Vite weten wat GLSL is:
+
+```sh
+npm install vite-plugin-glsl
+```
+#### vite.config.js
+```json
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+import glsl from 'vite-plugin-glsl'
+
+export default defineConfig({
+    plugins: [glsl()],
+})
+```
+
+
+
+
+
+
