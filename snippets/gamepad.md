@@ -113,15 +113,17 @@ Dat moet je dan even dubbel checken, anders wordt je game automatisch speler 2.
 
 ```js
 startGame() {
-    // 1. If a controller is already active, make it Player 1
     const active = this.input.gamepads.getValidGamepads();
-    if (active.length > 0) this.gamepad = active[0];
-
-    // 2. Default Excalibur connection code
-    this.input.gamepads.on('connect', (connectevent) => {
-        console.log('Gamepad connected', connectevent);
-        this.gamepad = connectevent.gamepad;
-    });
+    if (active.length > 0) {
+       // a controller is already active, make it Player 1
+       this.gamepad = active[0];
+    } else {
+        // Listen for new gamepad connections
+        this.input.gamepads.on('connect', (connectevent) => {
+            console.log('Gamepad connected', connectevent);
+            this.gamepad = connectevent.gamepad;
+        });
+    }
 }
 ```
 
