@@ -106,21 +106,23 @@ if(mygamepad.connected){
 <Br>
 <br>
 
-## Events
+## ⚠️ Arcade Kast
 
-Een alternatieve aanpak is om te luisteren naar events. Let echter op dat events door ***alle scenes*** heen afgevuurd zullen worden. Dit moet je dan uitzetten via `this.mygamepad.off('button')`.
+Als je game op de arcade kast staat, dan kan het gebeuren dat de browser de controller al geregistreerd heeft voordat je game uberhaupt start.
+Dat moet je dan even dubbel checken, anders wordt je game automatisch speler 2.
 
-```javascript
-this.mygamepad.on('button', (buttonevent) => {
-    if (buttonevent.button === Buttons.Face1) {
-        console.log("button event is triggered")
-    }
-})
-this.mygamepad.on('axis', (axisevent) => {
-    if (axisevent.axis === Axes.LeftStickX && axisevent.value > 0.5) {
-        console.log("move right event is triggered")
-    }
-})
+```js
+startGame() {
+    // 1. If a controller is already active, make it Player 1
+    const active = this.input.gamepads.getValidGamepads();
+    if (active.length > 0) this.gamepad = active[0];
+
+    // 2. Default Excalibur connection code
+    this.input.gamepads.on('connect', (connectevent) => {
+        console.log('Gamepad connected', connectevent);
+        this.gamepad = connectevent.gamepad;
+    });
+}
 ```
 
 <br><br><br>
