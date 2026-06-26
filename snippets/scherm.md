@@ -36,13 +36,21 @@ export class Game extends Engine {
         super({ 
             width: 480, 
             height: 320, 
-            pixelArt: true,
-            suppressPlayButton: false
+            pixelArt: true
         })
     }
 }
 ```
-> *Note: op de arcadekast kan je de playbutton weglaten*.
+Je kan ook in CSS zeggen dat het canvas niet blurry mag worden:
+
+```css
+canvas {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+```
+
+<br><bR><br>
 
 #### Loading screen en fullscreen
 
