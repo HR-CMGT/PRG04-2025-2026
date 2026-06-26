@@ -156,15 +156,11 @@ export class Ship extends Actor {
         // hit circle
         // super({radius: 50, collisionType:CollisionType.Active})
     }
-    
-    onInitialize(engine) {
-        this.on('collisionstart', (event) => this.hitSomething(event))
-    }
 
-    hitSomething(event){
-        if (event.other.owner instanceof Enemy) {
-            // Je kan `instanceof` gebruiken om te zien waar je tegenaan botst.
+    onCollisionStart(event, other){
+        if (other.owner instanceof Enemy) {
             console.log('hit enemy')
+            other.owner.kill()
         }
     }
 }
