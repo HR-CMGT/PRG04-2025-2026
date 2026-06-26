@@ -4,7 +4,8 @@ Met een `SpriteSheet` kan je meerdere sprites knippen uit een enkel PNG bestand.
 
 - [Animatieframes](#animation-frames) in één png file
     - Walking Character
-    - Loop, PingPong, End Listener 
+    - Loop, PingPong, End Listener
+    - Custom Frames for animation
 - [Tiles knippen](#tiles-knippen) uit een grotere afbeelding 
 
 <br>
@@ -152,6 +153,16 @@ export class Player extends Actor {
         this.graphics.use("idle")
     }
 }
+```
+<br>
+
+### Custom Frames voor Animatie
+
+Je kan ook zelf aangeven welke frames in welke volgorde een animatie gaan vormen:
+
+```js
+const customIndices = [1,1,1, 1,1,1,1,2, 3, 4,5];
+const customAnim = Animation.fromSpriteSheet(updownSheet, customIndices, 80);
 ```
 
 <br><br><br>
