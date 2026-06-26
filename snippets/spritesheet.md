@@ -3,6 +3,8 @@
 Met een `SpriteSheet` kan je meerdere sprites knippen uit een enkel PNG bestand. Dit kan je gebruiken voor Tiles of om animatieframes te laden.
 
 - [Animatieframes](#animation-frames) in één png file
+    - Walking Character
+    - Loop, PingPong, End Listener 
 - [Tiles knippen](#tiles-knippen) uit een grotere afbeelding 
 
 <br>
@@ -108,6 +110,47 @@ export class Player extends Actor {
         this.vel = new Vector(xspeed, 0)
     }
 
+}
+```
+
+<br><br><bR>
+
+## Loop, PingPong, End Listener
+
+Via `AnimationStrategy` kan je bepalen of een spritesheet animatie eeuwig moet loopen, pingpongen of stoppen aan het eind. Je kan een `listener` toevoegen om code uit te voeren als de animatie is afgelopen.
+
+```js
+import { Actor, SpriteSheet, Vector, Animation, range, Keys, AnimationStrategy } from "excalibur";
+import { Resources } from "./resources";
+
+export class Player extends Actor {
+
+    onInitialize(engine) {
+
+        const updownSheet = SpriteSheet.fromImageSource({
+            image: Resources.PlayerSheet,
+            grid: { rows: 10, columns: 4, spriteWidth: 128, spriteHeight: 72 }
+        })        
+
+        const idleAnim = Animation.fromSpriteSheet(updownSheet, range(0, 10), 60)
+        const moveDown = Animation.fromSpriteSheet(updownSheet, range(11, 20), 60)
+        const moveUp = Animation.fromSpriteSheet(updownSheet, range(21, 40), 60)
+
+        // what to do when animation finishes
+        idleAnim.strategy = AnimationStrategy.PingPong
+        moveDown.strategy = AnimationStrategy.End
+        moveUp.strategy = AnimationStrategy.End
+
+        // set back to idle when animation has finished
+        moveDown.events.on('end', () => this.graphics.use("idle"))
+        moveUp.events.on('end', () => this.graphics.use("idle"))
+
+        this.graphics.add("idle", idleAnim)
+        this.graphics.add("moveDown", moveDown)
+        this.graphics.add("moveUp", moveUp)
+
+        this.graphics.use("idle")
+    }
 }
 ```
 
