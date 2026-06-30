@@ -20,10 +20,6 @@ export class Game extends Engine {
 
     startGame(){
         this.input.gamepads.enabled = true
-        this.input.gamepads.on('connect', (connectevent) => {
-            console.log("gamepad detected")
-            this.mygamepad = connectevent.gamepad
-        })
     }
 }
 ```
@@ -33,18 +29,22 @@ Nu kan je in de player de sticks en buttons uitlezen:
 export class Player extends Actor {
 
     onPreUpdate(engine) {
-        if (!engine.mygamepad) { 
-            return
+        if (engine.input.gamepads.at(0).wasButtonPressed(Buttons.Face1)) {
+            console.log("Gamepad 0, button 1 pressed");
         }
-        // beweging
-        const x = engine.mygamepad.getAxes(Axes.LeftStickX)
-        const y = engine.mygamepad.getAxes(Axes.LeftStickY)
-        this.vel = new Vector(x * 10, y * 10)
+        if (engine.input.gamepads.at(1).wasButtonPressed(Buttons.Face1)) {
+            console.log("Gamepad 1, button 1 pressed");
+        }
 
-        // schieten, springen
-        if (engine.mygamepad.isButtonPressed(Buttons.Face1)) {
-            console.log('Jump!')
-        }
+        // bewegen
+        const xValue = engine.input.gamepads.at(0).getAxes(Axes.LeftStickX)
+        const yValue = engine.input.gamepads.at(0).getAxes(Axes.LeftStickY)
+
+        console.log(`X: ${xValue} Y: ${yValue}`)
+
+        let speed = 100
+        this.vel = new Vector(xValue * speed, yValue * speed)
+        
     }
 }
 ```
@@ -55,17 +55,18 @@ export class Player extends Actor {
 
 ## 🎮 🎮 🎮 🎮 Local multiplayer
 
-Het `connect` event gebeurt maar één keer per controller. Je kan dus voor elk `connect` event een nieuwe player aanmaken. Je slaat de controller dan op in de player.
+Je kan aan een player class meegeven welke controller er bij hoort! Let op dat je wel controleert of die speler uberhaupt bestaat. Voor "drop-in" multiplayer kan je het `connect` event gebruiken of elk frame checken of player 2 de controller gebruikt.
 
 ```javascript
 export class Game extends Engine {
     startGame(){
         this.input.gamepads.enabled = true
-        this.input.gamepads.on('connect', (connectevent) => {
-            console.log("gamepad detected, assign to new player")
-            let player = new Player(connectevent.gamepad)
-            this.add(player)
-        })
+
+        let gamepadOne = engine.input.gamepads.at(0)
+        this.add(new Player(gamepadOne)
+
+        let gamepadTwo = engine.input.gamepads.at(1)
+        this.add(new Player(gamepadTwo)
     }
 }
 ```
@@ -92,39 +93,3 @@ export class Player extends Actor {
 
 <br><br><br>
 
-### Gamepad handmatig uitlezen
-
-Je kan via `gamepads.at(0)` verschillende gamepads opvragen. Je moet nu wel handmatig checken of de gamepad `connected` is.
-
-```javascript
-let mygamepad = engine.input.gamepads.at(0) 
-if(mygamepad.connected){
-    // check de input hier
-}
-```
-<br>
-<Br>
-<br>
-
-## ⚠️ Arcade Kast
-
-Als je game op de arcade kast staat, dan kan het gebeuren dat de browser de controller al geregistreerd heeft voordat je game uberhaupt start.
-Dat moet je dan even dubbel checken, anders wordt je game automatisch speler 2.
-
-```js
-startGame() {
-    const active = this.input.gamepads.getValidGamepads();
-    if (active.length > 0) {
-       // a controller is already active, make it Player 1
-       this.gamepad = active[0];
-    } else {
-        // Listen for new gamepad connections
-        this.input.gamepads.on('connect', (connectevent) => {
-            console.log('Gamepad connected', connectevent);
-            this.gamepad = connectevent.gamepad;
-        });
-    }
-}
-```
-
-<br><br><br>
