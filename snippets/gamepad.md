@@ -1,12 +1,6 @@
 # Gamepad besturing
 
-Je kan de [Excalibur Gamepad](https://excaliburjs.com/docs/gamepad) gebruiken om gebruikersinput te lezen. Dit werkt zowel voor PS4 / XBox controllers als voor de arcade kast / joysticks.
-
-<br><br><br>
-
-### Gamepad onthouden
-
-De gamepad vuurt een `connect` event af zodra je op een button drukt. Op dat moment kan je de gamepad opslaan. 
+Je kan de [Excalibur Gamepad](https://excaliburjs.com/docs/gamepad) gebruiken om gebruikersinput te lezen. Dit werkt zowel voor PS4 / XBox controllers als voor de arcade kast / joysticks. Dit gebruikt de [GamePad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API) van de browser. Support hiervoor verschilt per browser!
 
 ```javascript
 export class Game extends Engine {
