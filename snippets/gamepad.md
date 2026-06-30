@@ -5,13 +5,6 @@ Je kan de [Excalibur Gamepad](https://excaliburjs.com/docs/gamepad) gebruiken om
 ```javascript
 export class Game extends Engine {
 
-    mygamepad
-
-    constructor() {
-        super()
-        this.start(ResourceLoader).then(() => this.startGame())
-    }
-
     startGame(){
         this.input.gamepads.enabled = true
     }
