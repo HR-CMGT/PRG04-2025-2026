@@ -87,3 +87,6 @@ export class Player extends Actor {
 
 <br><br><br>
 
+⚠️ Je kan het `connect` event gebruiken om naar nieuwe connecties te luisteren, hou er echter rekening mee dat eerder geregistreerde controllers (ook in andere browser vensters, zoals de arcade kast!) niet nog een keer opnieuw het `connect` event afvuren.
+
+<br><br><br>
