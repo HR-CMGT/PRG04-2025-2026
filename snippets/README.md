@@ -24,6 +24,7 @@
 
 - [Dialog Tree](./dialogtree.md)
 - [Tiling en Scrolling Background](./scrolling.md)
+- [Ground Check voor platform games](./groundcheck.md)
 - [Een auto besturen](./movedirection.md)
 - [Actors zoeken in een Scene](#actors-zoeken)
 - [Een karakter met verschillende wapens](#wapens)
