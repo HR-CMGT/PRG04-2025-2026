@@ -106,3 +106,7 @@ export class Level extends Scene {
 }
 ```
 
+⚠️ Als je game grotendeels bestaat uit veel tekst en dialogen, dan kan je overwegen om dit gewoon in een HTML+CSS overlay te maken. Dit is een `<div>` die je over je excalibur game heen legt met `position:absolute`.
+
+<br><br><br>
+
