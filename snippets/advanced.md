@@ -45,8 +45,6 @@ Je krijgt nu een standaard Vite project. Voeg een `SRC` folder toe. Je kan de `P
 Voeg het build en preview commando toe aan package.json. We voegen hier `docs` toe aan de `outDir` omdat github pages met een `docs` folder werkt. De `base` variabele bepaalt het startpunt van waaruit je project naar bestanden gaat zoeken. 
 
 ```json
-
-```json
  "scripts": {
     "dev": "vite",
     "build": "vite build --outDir=docs --base=./",
