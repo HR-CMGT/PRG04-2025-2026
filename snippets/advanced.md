@@ -1,8 +1,9 @@
 # Advanced setup
 
 - build preview
-- de game sneller laden en builden
 - starting from scratch
+    - startcode
+- de game sneller laden en builden
 - VS code settings
 
 <br>
@@ -23,32 +24,7 @@ Om snel te testen of het publiceren naar de `docs` map werkt kan je een preview 
 <br>
 <br>
 
-## De game sneller laden en builden
 
-Als je `excalibur` apart compileert van je game code, dan gaat het `npm run build` proces veel sneller, en het laden van je game in de browser gaat ook sneller na een update. Dit komt doordat `excalibur` dan in de `cache` kan blijven en alleen je game update opnieuw wordt gecompileerd / geladen.
-
-#### vite.config.js
-
-```js
-import { defineConfig } from 'vite';
-
-export default defineConfig({
-    build: {
-        rollupOptions: {
-            output: {
-                manualChunks(id) {
-                    // If the module is inside node_modules and includes 'excalibur',
-                    // bundle it into a chunk named 'vendor-excalibur'
-                    if (id.includes('node_modules') && id.includes('excalibur')) {
-                        return 'vendor-excalibur';
-                    }
-                }
-            }
-        }
-    }
-});
-
-```
 
 <br><br><br>
 
@@ -81,7 +57,38 @@ Voeg het build en preview commando toe aan package.json. We voegen hier `docs` t
 <br>
 <br>
 
-## Startcode voor game en resources
+## De game sneller laden en builden
+
+Als je `excalibur` apart compileert van je game code, dan gaat het `npm run build` proces veel sneller, en het laden van je game in de browser gaat ook sneller na een update. Dit komt doordat `excalibur` dan in de `cache` kan blijven en alleen je game update opnieuw wordt gecompileerd / geladen.
+
+#### vite.config.js
+
+```js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    // If the module is inside node_modules and includes 'excalibur',
+                    // bundle it into a chunk named 'vendor-excalibur'
+                    if (id.includes('node_modules') && id.includes('excalibur')) {
+                        return 'vendor-excalibur';
+                    }
+                }
+            }
+        }
+    }
+});
+
+```
+
+<Br>
+<br>
+<br>
+
+### Startcode
 
 Je kan onderstaande twee classes toevoegen aan de SRC map. Let op dat je `game.js` inlaadt in `index.html`. `index.html` staat in de root. Verder staan alle werkbestanden in de SRC map.
 
