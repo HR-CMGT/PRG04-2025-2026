@@ -50,10 +50,10 @@ export class Game extends Engine {
         this.input.gamepads.enabled = true
 
         let gamepadOne = engine.input.gamepads.at(0)
-        this.add(new Player(gamepadOne)
+        this.add(new Player(gamepadOne))
 
         let gamepadTwo = engine.input.gamepads.at(1)
-        this.add(new Player(gamepadTwo)
+        this.add(new Player(gamepadTwo))
     }
 }
 ```
@@ -80,6 +80,8 @@ export class Player extends Actor {
 
 <br><br><br>
 
-⚠️ Je kan het `connect` event gebruiken om naar nieuwe connecties te luisteren, hou er echter rekening mee dat eerder geregistreerde controllers (ook in andere browser vensters, zoals de arcade kast!) niet nog een keer opnieuw het `connect` event afvuren.
+⚠️ In code voorbeelden wordt soms het `connect` event gebruikt, zodat je kan zien of er een nieuwe controller is aangesloten. Het probleem hiermee is dat de browser oude connecties onthoudt, waardoor het onhandig wordt om bij te houden welk `event` bij welke speler hoort. 
+
+[Documentatie](https://excaliburjs.com/docs/gamepad)
 
 <br><br><br>
