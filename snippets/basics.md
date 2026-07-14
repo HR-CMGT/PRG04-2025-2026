@@ -1,73 +1,17 @@
+# Excalibur Basics
 
-# Code Snippets
-
-## Essentials
-
-- [Actors, flip en rotate](#actors)
+- [Actors, flip en rotate](#actors-flip-en-rotate)
 - [Collisions](#collision)
 - [Click en Exit Screen Events](#click-en-exit-screen-events)
 - [Keyboard besturing](#keyboard-besturing)
-- [Gamepad besturing](./gamepad.md)
 - [Camera volgt speler](#camera-volgt-speler)
 - [Geluid en Fonts laden](#sound-and-fonts)
-- [Spritesheet](./spritesheet.md)
 - [Scenes](#scenes)
-- [Physics en hitbox](./physics.md)
-- [Scherm instellingen (afmeting, pixel art, loading, fullscreen)](./scherm.md)
 - [Spawning](#spawning)
 - [Timer](#timer)
-- [Tekst met score](./tekstveld.md)
-- [UI met healthbar](./ui.md)
-- [Troubleshooting](./snippets/troubleshooting.md)
-
-## Advanced
-
-- [Dialog Tree](./dialogtree.md)
-- [Tiling en Scrolling Background](./scrolling.md)
-- [Ground Check voor platform games](./groundcheck.md)
-- [Een auto besturen](./movedirection.md)
-- [Actors zoeken in een Scene](#actors-zoeken)
-- [Een karakter met verschillende wapens](#wapens)
-- [Particles](./particles.md)
-- [Shaders](./shaders.md)
-- [Random tint](#random-tint)
-- [JSON laden](#json-laden)
-- [Afstanden en vectoren](./vector.md)
-- [Enemy behaviour](./behaviour.md)
-- [Voortgang opslaan met localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-- [Online Multiplayer met Socket.IO](https://socket.io) of [Lance](https://lance-gg.github.io)
-- [Type Checking](./typechecking.md)
-- [Een excalibur project opzetten zonder het startproject](./snippets/advanced.md)
-
-## Assets
-
-- [CraftPix 2D assets](https://craftpix.net)
-- [itch.io assets](https://itch.io/game-assets), [Open Game Art](https://opengameart.org), [Kenney Assets](https://www.kenney.nl/assets)
-- [Create Game Sounds](https://sfxr.me) en [AI Sound Effects](https://elevenlabs.io/sound-effects)
-- [Sprite Sheet Maker](https://www.finalparsec.com/tools/sprite_sheet_maker)
-- [AI Pixel Art generator](https://aipixelartgenerator.com/) 
-- [Pixel fonts](https://www.dafont.com/bitmap.php)
-
-## Links
-
-- [Plaats je game op itch.io](https://itch.io/docs/creators/html5)
-- [Standalone Game met Electron](https://github.com/excaliburjs/template-electron)
-- [Important changes in V0.30](https://github.com/excaliburjs/Excalibur/releases/tag/v0.30.0) and [V0.29 notes](https://github.com/excaliburjs/Excalibur/releases/tag/v0.29.0)
-- [Excalibur Gallery](https://excaliburjs.com/gallery/), [Show and Tell](https://github.com/excaliburjs/Excalibur/discussions/categories/show-and-tell)
-- [Tenpa Examples](https://github.com/tenpaMk2/excalibur-examples), [Terrible Games](https://github.com/dcgw)
-- [Javascript Game Development](https://gamedevjs.com) en [Newsletter](https://gamedevjsweekly.com)
-- [Javascript Game Design Patterns](https://designpatternsgame.com/patterns)
-- [Game Programming Patterns](https://gameprogrammingpatterns.com)
-- [MDN Game Development](https://developer.mozilla.org/en-US/docs/Games)
-- [MDN Object Oriented Programming](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_programming)
-- [Javascript games spelen op een handheld emulator](https://www.youtube.com/watch?v=osJsBRPSrM4)
-
-![retro](./retro-handheld.png)
 
 
 <br><br><br>
-
-
 
 
 ## Actors, flip en rotate
@@ -157,11 +101,15 @@ export class Ship extends Actor {
         // hit circle
         // super({radius: 50, collisionType:CollisionType.Active})
     }
+    
+    onInitialize(engine) {
+        this.on('collisionstart', (event) => this.hitSomething(event))
+    }
 
-    onCollisionStart(event, other){
-        if (other.owner instanceof Enemy) {
+    hitSomething(event){
+        if (event.other.owner instanceof Enemy) {
+            // Je kan `instanceof` gebruiken om te zien waar je tegenaan botst.
             console.log('hit enemy')
-            other.owner.kill()
         }
     }
 }
@@ -590,119 +538,4 @@ export class Game extends Engine {
 
     
 <br><br><br>
-
-
-
-# Advanced
- 
-## Actors zoeken
-
-De game heeft een array van actors: `this.currentScene.actors` *(Vanuit een actor is dit: `this.scene.actors`)*
-
-Je kan met `filter` naar alle actors van een bepaald type zoeken. Je kan `find` gebruiken om een enkele actor van een type te zoeken. 
-
-Je kan ook zelf door de actors heen loopen.
-
-```js
-class Game extends Engine {
-
-    startGame(){
-        let someShark = new Shark()
-        this.add(someShark)
-        for(let i = 0; i < 10; i++) {
-            let f = new Fish()
-            this.add(f)
-        }
-    }
-
-    howManyFishes() {
-        let fishes = this.currentScene.actors.filter(act => act instanceof Fish)
-        console.log(`Er zijn nog ${fishes.length} vissen`)
-    }
-
-    findShark() {
-        let shark = this.currentScene.actors.find(act => act instanceof Shark)
-        console.log(shark)
-    }
-
-    gameOver() {
-        for(let actor of this.currentScene.actors) {
-           actor.kill()
-        }
-        this.startGame()
-    }
-}
-```
-
-
-<Br><br><br>
-
-## Wapens
-
-![chicken](./chickenfight.gif)
-
-Met composition kan je een karakter verschillende wapens geven. Door te zorgen dat elk wapen dezelfde functies gebruikt, kan elk wapen een ander effect krijgen.
-
-```js
-class ArmedChicken extends Actor {
-    onInitialize(engine){
-        this.weapon = new Gun()
-        this.addChild(this.weapon)
-    }
-    attack(){
-        this.weapon.hit() // dit werkt voor machinegun en gun
-    }
-}
-```
-```js
-class Gun extends Actor {
-    hit(){
-        let bullet = new Bullet()
-        this.scene.engine.add(bullet)
-    }
-}
-```
-```js
-class MachineGun extends Actor {
-    hit(){
-        for(let i = 0; i< 10;i++) {
-            let bullet = new Bullet()
-            this.scene.engine.add(bullet)
-        }
-    }
-}
-```
-- [Voorbeeldcode kip met zwaard 🗡️🐔](https://stackblitz.com/edit/excalibur-chicken) 
-
-<br><br><br>
-
-## Random tint
-
-```js
-let sprite = Resources.Mario.toSprite()
-sprite.tint = new Color(Math.random() * 255, Math.random() * 255, Math.random() * 255)
-```
-
-<br><br><Br>
-
-## JSON laden
-
-Als je `import` gebruikt wordt het JSON bestand onderdeel van je project tijdens de `build` stap. Je hoeft het niet toe te voegen aan de excalibur loader. Als de data van een externe server komt (of als het bestand heel groot is) is het beter om `fetch` te gebruiken.
-
-VOORBEELD
-
-```javascript
-import jsonData from "../data/pokemon.json"
-
-class Pokemon extends Actor {
-    showPokemon(){
-        for(let p of jsonData) {
-            console.log(p)
-        }
-    }
-}
-```
-<br><br><br>
-
-
 

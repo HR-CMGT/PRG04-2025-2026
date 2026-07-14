@@ -1,143 +1,121 @@
-# Advanced setup
+# Excalibur Advanced
 
-- build preview
-- starting from scratch
-    - startcode
-- de game sneller laden en builden
-- VS code settings
+- [Advanced](#advanced)
+- [Actors zoeken](#actors-zoeken)
+- [Wapens](#wapens)
+- [Random tint](#random-tint)
+- [JSON laden](#json-laden)
 
-<br>
-<br>
-<br>
+# Advanced
+ 
+## Actors zoeken
 
-## Build preview
+De game heeft een array van actors: `this.currentScene.actors` *(Vanuit een actor is dit: `this.scene.actors`)*
 
-Om snel te testen of het publiceren naar de `docs` map werkt kan je een preview doen. Dit kan je toevoegen aan `package.json`:
+Je kan met `filter` naar alle actors van een bepaald type zoeken. Je kan `find` gebruiken om een enkele actor van een type te zoeken. 
 
-```json
-"scripts": {
-    "preview": "vite preview --outDir=docs --base=./"
-},
+Je kan ook zelf door de actors heen loopen.
+
+```js
+class Game extends Engine {
+
+    startGame(){
+        let someShark = new Shark()
+        this.add(someShark)
+        for(let i = 0; i < 10; i++) {
+            let f = new Fish()
+            this.add(f)
+        }
+    }
+
+    howManyFishes() {
+        let fishes = this.currentScene.actors.filter(act => act instanceof Fish)
+        console.log(`Er zijn nog ${fishes.length} vissen`)
+    }
+
+    findShark() {
+        let shark = this.currentScene.actors.find(act => act instanceof Shark)
+        console.log(shark)
+    }
+
+    gameOver() {
+        for(let actor of this.currentScene.actors) {
+           actor.kill()
+        }
+        this.startGame()
+    }
+}
 ```
 
-<br>
-<br>
-<br>
 
+<Br><br><br>
 
+## Wapens
+
+![chicken](./chickenfight.gif)
+
+Met composition kan je een karakter verschillende wapens geven. Door te zorgen dat elk wapen dezelfde functies gebruikt, kan elk wapen een ander effect krijgen.
+
+```js
+class ArmedChicken extends Actor {
+    onInitialize(engine){
+        this.weapon = new Gun()
+        this.addChild(this.weapon)
+    }
+    attack(){
+        this.weapon.hit() // dit werkt voor machinegun en gun
+    }
+}
+```
+```js
+class Gun extends Actor {
+    hit(){
+        let bullet = new Bullet()
+        this.scene.engine.add(bullet)
+    }
+}
+```
+```js
+class MachineGun extends Actor {
+    hit(){
+        for(let i = 0; i< 10;i++) {
+            let bullet = new Bullet()
+            this.scene.engine.add(bullet)
+        }
+    }
+}
+```
+- [Voorbeeldcode kip met zwaard 🗡️🐔](https://stackblitz.com/edit/excalibur-chicken) 
 
 <br><br><br>
 
-## Starting from scratch
-
-Maak een [Vite](https://vitejs.dev) project met `npm create vite@latest`. In de Vite setup kies je voor `vanilla` en `javascript`. Vervolgens open je de projectmap en installeer je excalibur.
-
-```bash
-npm create vite@latest mijn-game-project # kies voor vanilla en javascript
-cd mijn-game-project
-npm install excalibur
-npm run dev
-```
-Je krijgt nu een standaard Vite project. Voeg een `SRC` folder toe. Je kan de `PUBLIC` map en de voorbeeldcode van Vite verwijderen (`counter.js, main.js, `en de `.svg files`)
-
-### Package.json aanpassen
-
-Voeg het build en preview commando toe aan package.json. We voegen hier `docs` toe aan de `outDir` omdat github pages met een `docs` folder werkt. De `base` variabele bepaalt het startpunt van waaruit je project naar bestanden gaat zoeken. 
-
-```json
- "scripts": {
-    "dev": "vite",
-    "build": "vite build --outDir=docs --base=./",
-    "preview": "vite preview --outDir=docs --base=./"
-  },
-```
-<br>
-<br>
-<br>
-
-## De game sneller laden en builden
-
-Als je `excalibur` apart compileert van je game code, dan gaat het `npm run build` proces veel sneller, en het laden van je game in de browser gaat ook sneller na een update. Dit komt doordat `excalibur` dan in de `cache` kan blijven en alleen je game update opnieuw wordt gecompileerd / geladen.
-
-#### vite.config.js
+## Random tint
 
 ```js
-import { defineConfig } from 'vite';
+let sprite = Resources.Mario.toSprite()
+sprite.tint = new Color(Math.random() * 255, Math.random() * 255, Math.random() * 255)
+```
 
-export default defineConfig({
-    build: {
-        rollupOptions: {
-            output: {
-                manualChunks(id) {
-                    // If the module is inside node_modules and includes 'excalibur',
-                    // bundle it into a chunk named 'vendor-excalibur'
-                    if (id.includes('node_modules') && id.includes('excalibur')) {
-                        return 'vendor-excalibur';
-                    }
-                }
-            }
+<br><br><Br>
+
+## JSON laden
+
+Als je `import` gebruikt wordt het JSON bestand onderdeel van je project tijdens de `build` stap. Je hoeft het niet toe te voegen aan de excalibur loader. Als de data van een externe server komt (of als het bestand heel groot is) is het beter om `fetch` te gebruiken.
+
+VOORBEELD
+
+```javascript
+import jsonData from "../data/pokemon.json"
+
+class Pokemon extends Actor {
+    showPokemon(){
+        for(let p of jsonData) {
+            console.log(p)
         }
     }
-});
-
-```
-
-<Br>
-<br>
-<br>
-
-### Startcode
-
-Je kan onderstaande twee classes toevoegen aan de SRC map. Let op dat je `game.js` inlaadt in `index.html`. `index.html` staat in de root. Verder staan alle werkbestanden in de SRC map.
-
-GAME.JS
-
-```javascript
-import { Actor, Engine, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
-
-export class Game extends Engine {
-    constructor() {
-        super({ width: 800, height: 600 })
-        this.start(ResourceLoader).then(() => this.startGame())
-    }
-    startGame(){
-        console.log("start de game!")
-    }
 }
-
-new Game()
 ```
-RESOURCES.JS
-
-Plaats je resources in de `public` folder. Daarbinnen kan je subfolders aanmaken voor images, sounds, fonts, etc.
-
-```javascript
-import { ImageSource, Sound, Resource, Loader } from 'excalibur'
-const Resources = {
-    Fish: new ImageSource('images/fish.png')
-}
-const ResourceLoader = new Loader([Resources.Fish])
-export { Resources, ResourceLoader }
-```
+<br><br><br>
 
 
-<br>
-<br>
-<br>
 
-## VS Code Tip
-
-Tip: clickable npm commando's in VS Code
-
-Het is super handig om de npm commando's aan te kunnen klikken:
-
-```
-Open "File > Preferences > Settings"
-Search "npm script"
-Toggle "Npm: Enable Script Explorer"
-```
-
-<br>
-<br>
-<br>
