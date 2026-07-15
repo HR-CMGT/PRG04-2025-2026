@@ -42,7 +42,7 @@ export class Player extends Actor {
 
 ## 🎮 🎮 🎮 🎮 Local multiplayer
 
-Je kan aan een player class meegeven welke controller er bij hoort! Let op dat je wel controleert of die speler uberhaupt bestaat. Voor "drop-in" multiplayer kan je het `connect` event gebruiken of elk frame checken of player 2 de controller gebruikt.
+Je kan aan een player class meegeven welke controller er bij hoort.
 
 ```javascript
 export class Game extends Engine {
