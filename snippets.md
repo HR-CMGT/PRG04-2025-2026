@@ -31,6 +31,7 @@
 - [Een auto besturen](./snippets/movedirection.md)
 - [Actors zoeken in een Scene](./snippets/README.md#actors-zoeken)
 - [Een karakter met verschillende wapens](./snippets/README.md#wapens)
+- [Spritesheet maken met Blender](./snippets/blender.md)
 - [Particles](./snippets/particles.md)
 - [Shaders](./snippets/shaders.md)
 - [Random tint](./snippets/README.md#random-tint)

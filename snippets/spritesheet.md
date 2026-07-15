@@ -6,22 +6,17 @@ Met een `SpriteSheet` kan je meerdere sprites knippen uit een enkel PNG bestand.
     - Walking Character
     - Loop, PingPong, End Listener
     - Custom Frames for animation
-- [Tiles knippen](#tiles-knippen) uit een grotere afbeelding 
+- [Tiles](#tiles-knippen) knippen uit een grotere afbeelding 
+- [Frames maken met Blender](./blender.md)
 
 <br>
+<br>
+<br>
+
+# Animation Frames
 
 Animatieframes <br>
 ![anim](./player.png)
-
-Tilemap tiles <br>
-![sheet](./cards.png)
-
-
-<br>
-<br>
-<br>
-
-## Animation Frames
 
 De image source heb je geladen in `Resources`. Je hoeft hier nog geen `toSprite()` te doen, dat gebeurt automatisch.
 
@@ -167,7 +162,10 @@ const customAnim = Animation.fromSpriteSheet(updownSheet, customIndices, 80);
 
 <br><br><br>
 
-## Tiles knippen uit een afbeelding
+# Tiles knippen uit een afbeelding
+
+Tilemap tiles <br>
+![sheet](./cards.png)
 
 Je kan alle tiles voor je achtergrond uit één afbeelding laden en individueel inladen. Let op, je hebt hier geen tilemap of tiled plugin nodig, alles wat we doen is plaatjes knippen uit een grotere afbeelding.
 
@@ -224,3 +222,10 @@ export class TileMap extends Actor {
     }
 }
 ```
+<br><Br><br>
+
+## Blender
+
+🔥 [Je kan je "fake 3D" animatieframes maken met Blender](./blender.md)
+
+![asteroid](../images/asteroid-example.gif)
